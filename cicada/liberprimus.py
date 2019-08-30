@@ -17,7 +17,7 @@ class LiberPrimus:
             "paragraph": "&",
             "segment"  : "$",
             "chapter"  : "§",
-            "line"     : "/",
+            "line"     : "/\n",
             "page"     : "%"
         }
 
