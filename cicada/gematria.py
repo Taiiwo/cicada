@@ -63,7 +63,7 @@ class Gematria:
         )
 
     def __repr__(self):
-        return "Gematria<%s:%s>" % (self.type, self.text)
+        return "<Gematria %s:%s>" % (self.type, self.text)
 
     def __str__(self):
         return self.text
