@@ -16,8 +16,8 @@ class Gematria:
         }
         self.gematriaprimus = (
                 (u'ᚠ',   'f',   2),
-                (u'ᚢ',   'v',   3),
                 (u'ᚢ',   'u',   3),
+                (u'ᚢ',   'v',   3),
                 (u'ᚦ',   'T',   5), # th
                 (u'ᚩ',   'o',   7),
                 (u'ᚱ',   'r',   11),
