@@ -126,52 +126,52 @@ class Runes(Gematria):
         super().__init__(text, "run")
 
     def to_simple(self):
-        return Simple("".join(self.convert("sim")))
+        return Simple(self.convert("sim"))
 
     def to_number(self):
-        return Number("".join(self.convert("num")))
+        return Number(self.convert("num"))
 
     def to_latin(self):
-        return Latin("".join(self.convert("lat")))
+        return Latin(self.convert("lat"))
 
 class Simple(Gematria):
     def __init__(self, text):
         super().__init__(text, "sim")
 
     def to_runes(self):
-        return Runes("".join(self.convert("run")))
+        return Runes(self.convert("run"))
 
     def to_number(self):
-        return Number("".join(self.convert("num")))
+        return Number(self.convert("num"))
 
     def to_latin(self):
-        return Latin("".join(self.convert("lat")))
+        return Latin(self.convert("lat"))
 
 class Number(Gematria):
     def __init__(self, text):
         super().__init__(text, "num")
 
     def to_runes(self):
-        return Runes("".join(self.convert("run")))
+        return Runes(self.convert("run"))
 
     def to_simple(self):
-        return Simple("".join(self.convert("sim")))
+        return Simple(self.convert("sim"))
 
     def to_latin(self):
-        return Latin("".join(self.convert("lat")))
+        return Latin(self.convert("lat"))
 
 class Latin(Gematria):
     def __init__(self, text):
         super().__init__(text, "lat")
 
     def to_runes(self):
-        return Runes("".join(self.convert("run")))
+        return Runes(self.convert("run"))
 
     def to_simple(self):
-        return Simple("".join(self.convert("sim")))
+        return Simple(self.convert("sim"))
 
     def to_number(self):
-        return Number("".join(self.convert("num")))
+        return Number(self.convert("num"))
 
 if __name__ == "__main__":
     a = Runes("""ᚱ-ᛝᚱᚪᛗᚹ.ᛄᛁᚻᛖᛁᛡᛁ-ᛗᚫᚣᚹ-ᛠᚪᚫᚾ-/
