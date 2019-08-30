@@ -106,16 +106,16 @@ class Gematria:
 
     def convert(self,format):
         f = self.lookup[self.type + " " + format]
-        return f(self.input)
+        return f(self.text)
 
     def substitute(self, plain, cipher):
-        self.input = self.translate(str.maketrans(plain, cipher))
+        self.text = self.text.translate(str.maketrans(plain, cipher))
         return self
 
 
 class Runes(Gematria):
-    def __init__(self, input):
-        super().__init__(input, "run")
+    def __init__(self, text):
+        super().__init__(text, "run")
 
     def to_simple(self):
         return Simple("".join(self.convert("sim")))
@@ -127,8 +127,8 @@ class Runes(Gematria):
         return Latin("".join(self.convert("lat")))
 
 class Simple(Gematria):
-    def __init__(self, input):
-        super().__init__(input, "sim")
+    def __init__(self, text):
+        super().__init__(text, "sim")
 
     def to_runes(self):
         return Runes("".join(self.convert("run")))
@@ -140,8 +140,8 @@ class Simple(Gematria):
         return Latin("".join(self.convert("lat")))
 
 class Number(Gematria):
-    def __init__(self, input):
-        super().__init__(input, "num")
+    def __init__(self, text):
+        super().__init__(text, "num")
 
     def to_runes(self):
         return Runes("".join(self.convert("run")))
@@ -153,8 +153,8 @@ class Number(Gematria):
         return Latin("".join(self.convert("lat")))
 
 class Latin(Gematria):
-    def __init__(self, input):
-        super().__init__(input, "lat")
+    def __init__(self, text):
+        super().__init__(text, "lat")
 
     def to_runes(self):
         return Runes("".join(self.convert("run")))
