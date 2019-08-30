@@ -3,10 +3,13 @@ import os
 from .gematria import Runes
 
 class LiberPrimus:
-    def __init__(self):
-        with open(os.path.join(os.path.dirname(__file__), "liber_primus.txt"), encoding="utf-8") as f:
-            # omit the key
-            self.runes = f.read()
+    def __init__(self, *args):
+        if not len(args) > 0:
+            with open(os.path.join(os.path.dirname(__file__), "liber_primus.txt"), encoding="utf-8") as f:
+                # omit the key
+                self.runes = f.read()
+        else:
+            self.runes = args[0]
 
         self.delimiters = {
             "word"     : "-",
