@@ -68,6 +68,7 @@ class Gematria:
     def __str__(self):
         return self.text
 
+    # algorithm taken from here: https://pastebin.com/6v1XC1kV
     def gem_map(self, x, src, dest):
         m = {p[src]:p[dest] for p in self.gematriaprimus}
         return [m[c] if c in m else c for c in x]
