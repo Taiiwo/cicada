@@ -178,3 +178,4 @@ if __name__ == "__main__":
     print(a.translate("ᚠᚢᚦᚩᚱᚳᚷᚹᚻᚾᛁᛄᛇᛈᛉᛋᛏᛒᛖᛗᛚᛝᛟᛞᚪᚫᚣᛡᛠ"))
     print(a.to_latin())
     # ᚻᛖᛚᛚᚩ
+    print(Latin("Hello"))
