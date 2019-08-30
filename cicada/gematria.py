@@ -112,6 +112,13 @@ class Gematria:
         self.text = self.text.translate(str.maketrans(plain, cipher))
         return self
 
+    def shift(self, n, alpha=False):
+        if not alpha:
+            if self.type == "run":
+                alpha = "ᚠᚢᚦᚩᚱᚳᚷᚹᚻᚾᛁᛄᛇᛈᛉᛋᛏᛒᛖᛗᛚᛝᛟᛞᚪᚫᚣᛡᛠ"
+            else:
+                alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        return self.substitute(alpha, alpha[n:] + alpha[:n])
 
 class Runes(Gematria):
     def __init__(self, text):
