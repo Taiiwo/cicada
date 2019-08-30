@@ -31,41 +31,37 @@ class LiberPrimus:
         input = input.replace("%", "")
         return Runes(input.strip())
 
+    def split_by(self, delim_index):
+        # split by the specified delimmiter and remove the rest
+        return [self.strip_delims(a) for a in self.runes.split(self.delimiters[delim_index])]
+
     @property
     def pages(self):
-        return [self.strip_delims(page) for page
-                in self.runes.split(self.delimiters["page"])]
+        return self.split_by("page")
 
     @property
     def lines(self):
-        return [self.strip_delims(line) for line
-                in self.runes.split(self.delimiters["line"])]
+        return self.split_by("line")
 
     @property
     def chapters(self):
-        return [self.strip_delims(chapter) for chapter
-                in self.runes.split(self.delimiters["chapter"])]
+        return self.split_by("chapter")
 
     @property
     def segments(self):
-        return [self.strip_delims(segment) for segment
-                in self.runes.split(self.delimiters["segment"])]
+        return self.split_by("segment")
 
     @property
     def paragraphs(self):
-        return [self.strip_delims(paragraph) for paragraph
-                in self.runes.split(self.delimiters["paragraph"])]
+        return self.split_by("paragraph")
 
     @property
     def clauses(self):
-        return [self.strip_delims(clause) for clause
-                in self.runes.split(self.delimiters["clause"])]
+        return self.split_by("clause")
 
     @property
     def words(self):
-        return [self.strip_delims(word) for word
-                in self.runes.split(self.delimiters["word"])]
-
+        return self.split_by("word")
 
 if __name__ == "__main__":
     lp = LiberPrimus()
