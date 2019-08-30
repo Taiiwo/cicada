@@ -106,7 +106,8 @@ class Gematria:
 
     def convert(self,format):
         f = self.lookup[self.type + " " + format]
-        return f(self.text)
+        self.text = "".join(f(self.text))
+        return self.text
 
     def substitute(self, plain, cipher):
         self.text = self.text.translate(str.maketrans(plain, cipher))
