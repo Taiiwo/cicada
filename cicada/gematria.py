@@ -1,8 +1,8 @@
 
 
-class Gematria(str):
-    def __init__(self, input, type):
-        self.input = input
+class Gematria:
+    def __init__(self, text, type):
+        self.text = text.upper()
         self.type = type
         self.lookup = {
             "lat sim": self.lat_to_sim,
@@ -61,6 +61,12 @@ class Gematria(str):
                 ('I','io'),
                 ('X','ea'),
         )
+
+    def __repr__(self):
+        return "Gematria<%s:%s>" % (self.type, self.text)
+
+    def __str__(self):
+        return self.text
 
     def gem_map(self, x, src, dest):
         m = {p[src]:p[dest] for p in self.gematriaprimus}
