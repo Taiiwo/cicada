@@ -21,6 +21,9 @@ class LiberPrimus:
             "page"     : "%"
         }
 
+    def __str__(self):
+        return self.strip_delims(self.runes)
+
     def strip_delims(self, input):
         input = input.replace("-", " ")
         input = input.replace(".", " ")
