@@ -16,13 +16,13 @@ class Gematria:
         }
         self.gematriaprimus = (
                 (u'ᚠ',   'f',   2),
-                (u'ᚢ',   'u',   3),
                 (u'ᚢ',   'v',   3),
+                (u'ᚢ',   'u',   3),
                 (u'ᚦ',   'T',   5), # th
                 (u'ᚩ',   'o',   7),
                 (u'ᚱ',   'r',   11),
-                (u'ᚳ',   'c',   13),
                 (u'ᚳ',   'k',   13),
+                (u'ᚳ',   'c',   13),
                 (u'ᚷ',   'g',   17),
                 (u'ᚹ',   'w',   19),
                 (u'ᚻ',   'h',   23),
@@ -32,8 +32,8 @@ class Gematria:
                 (u'ᛇ',   'E',   41), # eo
                 (u'ᛈ',   'p',   43),
                 (u'ᛉ',   'x',   47),
-                (u'ᛋ',   's',   53),
                 (u'ᛋ',   'z',   53),
+                (u'ᛋ',   's',   53),
                 (u'ᛏ',   't',   59),
                 (u'ᛒ',   'b',   61),
                 (u'ᛖ',   'e',   67),
@@ -57,9 +57,9 @@ class Gematria:
                 ('G','ng'),
                 ('O','oe'),
                 ('A','ae'),
-                ('I','ia'),
                 ('I','io'),
-                ('X','ea'),
+                ('I','ia'),
+                ('X','ea')
         )
 
     def __repr__(self):
@@ -74,6 +74,7 @@ class Gematria:
         return [m[c] if c in m else c for c in x]
 
     def lat_to_sim(self, x):
+        x = x.replace("q", "cw")
         for sim in self.latsimple:
             x = x.replace(sim[1], sim[0])
         return x
