@@ -110,9 +110,11 @@ class Gematria:
         self.text = "".join(f(self.text))
         return self.text
 
-    def substitute(self, plain, cipher):
-        self.text = self.text.translate(str.maketrans(plain, cipher))
-        return self.text
+    def substitute(self, plain, cipher, mutable=True):
+        text = self.text.translate(str.maketrans(plain, cipher))
+        if mutable:
+            self.text = text
+        return text
 
     def shift(self, n, alpha=False):
         if not alpha:
