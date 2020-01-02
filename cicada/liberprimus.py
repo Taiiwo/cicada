@@ -7,9 +7,9 @@ class LiberPrimus:
         if not len(args) > 0:
             with open(os.path.join(os.path.dirname(__file__), "liber_primus.txt"), encoding="utf-8") as f:
                 # omit the key
-                self.runes = f.read()
+                self.text = f.read()
         else:
-            self.runes = args[0]
+            self.text = args[0]
 
         self.delimiters = {
             "word"     : "-",
@@ -22,7 +22,7 @@ class LiberPrimus:
         }
 
     def __str__(self):
-        return self.strip_delims(self.runes)
+        return self.strip_delims(self.text)
 
     def strip_delims(self, input):
         input = input.replace("-", " ")
