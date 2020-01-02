@@ -66,6 +66,10 @@ class LiberPrimus:
     def words(self):
         return self.split_by("word")
 
+    @property
+    def runes(self):
+        return Runes(str(self))
+
 if __name__ == "__main__":
     lp = LiberPrimus()
     print(lp.pages[0])
