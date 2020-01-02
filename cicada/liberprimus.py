@@ -32,11 +32,11 @@ class LiberPrimus:
         input = input.replace("§", "")
         input = input.replace("/", "")
         input = input.replace("%", "")
-        return Runes(input.strip())
+        return input.strip()
 
     def split_by(self, delim_index):
         # split by the specified delimmiter and remove the rest
-        return [self.strip_delims(a) for a in self.runes.split(self.delimiters[delim_index])]
+        return [LiberPrimus(a) for a in self.text.split(self.delimiters[delim_index])]
 
     @property
     def pages(self):
