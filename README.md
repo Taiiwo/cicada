@@ -39,28 +39,28 @@ print(Latin("How would cicada type this?").to_runes().to_latin())
 A class for accessing the contents of the Liber Primus
 
 ### Property: pages
-Returns an array of Runes() objects containing each page
+Returns an array of LiberPrimus() objects containing each page
 
 ### Property: lines
-Returns an array of Runes() objects containing each line
+Returns an array of LiberPrimus() objects containing each line
 
 ### Property: chapters
-Returns an array of Runes() objects containing each chapter
+Returns an array of LiberPrimus() objects containing each chapter
 
 ### Property: segments
-Returns an array of Runes() objects containing each segment
+Returns an array of LiberPrimus() objects containing each segment
 
 ### Property: paragraphs
-Returns an array of Runes() objects containing each paragraph
+Returns an array of LiberPrimus() objects containing each paragraph
 
 ### Property: clauses
-Returns an array of Runes() objects containing each clause
+Returns an array of LiberPrimus() objects containing each clause
 
 ### Property: words
-Returns an array of Runes() objects containing each word
+Returns an array of LiberPrimus() objects containing each word
 
 ### Property: runes
-Returns a Runes() object containing the entire LP
+Returns a Runes() object of the contents
 
 ## Gematria()
 A base class for translating and manipulating the runes
@@ -75,6 +75,9 @@ Runs a substitution cipher where abc is the plain alphabet, and cba is the desir
 ### Method: shift(n, alpha=False)
 Runs a caesar shift on the contents. `alpha` determines if the shift should be on the runic alphabet or the
 latin one
+
+### Method: gematria_sum()
+Returns the gematria sum of the contents
 
 ### Method: to_runes()
 Converts text contents to runes
