@@ -38,47 +38,58 @@ print(Latin("How would cicada type this?").to_runes().to_latin())
 ## LiberPrimus()
 A class for accessing the contents of the Liber Primus
 
-    Property: pages - Returns an array of Runes() objects containing each page
+### Property: pages
+Returns an array of Runes() objects containing each page
 
-    Property: lines - Returns an array of Runes() objects containing each line
+### Property: lines
+Returns an array of Runes() objects containing each line
 
-    Property: chapters - Returns an array of Runes() objects containing each chapter
+### Property: chapters
+Returns an array of Runes() objects containing each chapter
 
-    Property: segments - Returns an array of Runes() objects containing each segment
+### Property: segments
+Returns an array of Runes() objects containing each segment
 
-    Property: paragraphs - Returns an array of Runes() objects containing each paragraph
+### Property: paragraphs
+Returns an array of Runes() objects containing each paragraph
 
-    Property: clauses - Returns an array of Runes() objects containing each clause
+### Property: clauses
+Returns an array of Runes() objects containing each clause
 
-    Property: words - Returns an array of Runes() objects containing each word
+### Property: words
+Returns an array of Runes() objects containing each word
 
-    Property: runes - Returns a Runes() object containing the entire LP
+### Property: runes
+Returns a Runes() object containing the entire LP
 
 ## Gematria()
 A base class for translating and manipulating the runes
 
+### Property: text
+Returns the base text for the object
+
 ### Method: substitute(abc, cba, mutable=True)
-    Runs a substitution cipher where abc is the plain alphabet, and cba is the desired alphabet.
-    `mutable` determines whether the function modifies the object contents
+Runs a substitution cipher where abc is the plain alphabet, and cba is the desired alphabet.
+`mutable` determines whether the function modifies the object contents
     
 ### Method shift(n, alpha=False)
-    Runs a caesar shift on the contents. `alpha` determines if the shift should be on the runic alphabet or the
-    latin one
+Runs a caesar shift on the contents. `alpha` determines if the shift should be on the runic alphabet or the
+latin one
 
 ### Method to_runes()
-    Converts text contents to runes
+Converts text contents to runes
 
 ### Method to_latin()
-    Converts text contents to latin
+Converts text contents to latin
 
 ### Method to_numbers()
-    Converts text contents to gematria values
+Converts text contents to gematria values
 
 ## Runes(rune_string) inherits Gematria
-    `rune_string`: The string of runes from which the object should be initialized
+`rune_string`: The string of runes from which the object should be initialized
 
 ## Latin(latin_string) inherits Gematria
-    `latin_string`: The string of latin characters from which the object should be initialized
+`latin_string`: The string of latin characters from which the object should be initialized
 
 ## Number(number_string) inherits Gematria
-    `number_string`: The string of number values from which the object should be initialized
+`number_string`: The string of number values from which the object should be initialized
