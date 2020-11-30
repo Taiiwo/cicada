@@ -72,17 +72,17 @@ Returns the base text for the object
 Runs a substitution cipher where abc is the plain alphabet, and cba is the desired alphabet.
 `mutable` determines whether the function modifies the object contents
     
-### Method shift(n, alpha=False)
+### Method: shift(n, alpha=False)
 Runs a caesar shift on the contents. `alpha` determines if the shift should be on the runic alphabet or the
 latin one
 
-### Method to_runes()
+### Method: to_runes()
 Converts text contents to runes
 
-### Method to_latin()
+### Method: to_latin()
 Converts text contents to latin
 
-### Method to_numbers()
+### Method: to_numbers()
 Converts text contents to gematria values
 
 ## Runes(rune_string) inherits Gematria
