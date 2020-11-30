@@ -98,16 +98,16 @@ class Gematria:
     def num_to_lat(self, x):
         return self.sim_to_lat("".join(self.gem_map(x, 2, 1)))
 
-    def count(self, x):
-        return sum(self.lat_to_num(x))
-    def count_words(self, x):
-        return [sum(self.lat_to_num(w)) for w in x.split(" ")]
-    def count_letters(self, x):
-        return [self.lat_to_num(w) for w in x.split(" ")]
+    def gematria_sum(self):
+        if self.type == "num":
+            return sum([int(n) for n in self.text.split(" ")])
+        f = self.lookup[self.type + " num"]
+        return sum(f(self.text))
 
     def convert(self,format):
         f = self.lookup[self.type + " " + format]
-        self.text = "".join(str(n) for n in f(self.text))
+        delim = " " if format == "num" else ""
+        self.text = delim.join(str(n) for n in f(self.text))
         return self.text
 
     def substitute(self, plain, cipher, mutable=True):
