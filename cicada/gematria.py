@@ -72,7 +72,8 @@ class Gematria:
         return self.gem_map(x, 0, 2)
 
     def lat_to_run(self, x):
-        return "".join(self.gem_map(self.lat_to_sim(x.lower()), 1, 0))
+        x = x.lower().replace("qu", "q")
+        return "".join(self.gem_map(self.lat_to_sim(x), 1, 0))
 
     def lat_to_num(self, x):
         # strip non alpha chars when converting to num
