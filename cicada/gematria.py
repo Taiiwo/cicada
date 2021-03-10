@@ -1,17 +1,5 @@
 class Gematria:
-    def __init__(self, text, type):
-        self.text = text.upper()
-        self.type = type
-        self.lookup = {
-            "lat sim": self.lat_to_sim,
-            "sim lat": self.sim_to_lat,
-            "run lat": self.run_to_lat,
-            "run num": self.run_to_num,
-            "lat run": self.lat_to_run,
-            "lat num": self.lat_to_num,
-            "num run": self.num_to_run,
-            "num lat": self.num_to_lat,
-        }
+    def __init__(self):
         self.gematriaprimus = (
             (" ", " ", 0),
             (u"ᚠ", "f", 2),
@@ -61,12 +49,6 @@ class Gematria:
             ("X", "ea"),
         )
 
-    def __repr__(self):
-        return "<Gematria %s:%s>" % (self.type, self.text)
-
-    def __str__(self):
-        return self.text
-
     # algorithm taken from here: https://pastebin.com/6v1XC1kV
     def gem_map(self, x, src, dest):
         m = {p[src]: p[dest] for p in self.gematriaprimus}
@@ -90,7 +72,7 @@ class Gematria:
         return self.gem_map(x, 0, 2)
 
     def lat_to_run(self, x):
-        return self.gem_map(self.lat_to_sim(x.lower()), 1, 0)
+        return "".join(self.gem_map(self.lat_to_sim(x.lower()), 1, 0))
 
     def lat_to_num(self, x):
         # strip non alpha chars when converting to num
@@ -103,121 +85,77 @@ class Gematria:
     def num_to_lat(self, x):
         return self.sim_to_lat("".join(self.gem_map(x, 2, 1)))
 
-    def convert(self, format):
-        f = self.lookup[self.type + " " + format]
-        delim = " " if format == "num" else ""
-        self.text = delim.join(str(n) for n in f(self.text))
+
+class Cipher:
+    def __repr__(self):
+        return "<Gematria %s:%s>" % (self.type, self.text)
+
+    def __str__(self):
         return self.text
 
-    # Methods that don't return gematria objects
-
-    def gematria_sum(self):
-        if self.type == "num":
-            return sum([int(n) for n in self.text.split() if n.isnumeric()])
-        f = self.lookup[self.type + " num"]
-        return sum(f(self.text))
-
-    def gematria_sum_words(self):
-        return [self.gematria_sum(w) for w in self.text.split()]
-
-    def gematria_sum_lines(self):
-        return [self.gematria_sum(w) for w in self.text.splitlines()]
-
-    def sub_text(self, plain, cipher, mutable=False):
-        text = self.text.translate(str.maketrans(plain, cipher))
-        if mutable:
-            self.text = text
-        return text
-
-
-class Simple(Gematria):
-    def __init__(self, text):
-        super().__init__(text, "sim")
+    def __init__(self, text, alpha):
+        self.text = text
+        self.alpha = alpha
+        self.gm = Gematria()
 
     def to_runes(self):
-        return Runes(self.convert("run"))
+        return Runes(self.gm.lat_to_run(self.text))
+
+    def to_latin(self):
+        return Latin(self.gm.run_to_lat(self.text))
 
     def to_number(self):
-        return Number(self.convert("num"))
-
-    def to_latin(self):
-        return Latin(self.convert("lat"))
-
-
-class Number(Gematria):
-    def __init__(self, text):
-        super().__init__(text, "num")
-
-    def to_runes(self):
-        return Runes(self.convert("run"))
-
-    def to_simple(self):
-        return Simple(self.convert("sim"))
-
-    def to_latin(self):
-        return Latin(self.convert("lat"))
-
-
-class Runes(Gematria):
-    def __init__(self, text):
-        super().__init__(text, "run")
-        self.alpha = "ᚠᚢᚦᚩᚱᚳᚷᚹᚻᚾᛁᛄᛇᛈᛉᛋᛏᛒᛖᛗᛚᛝᛟᛞᚪᚫᚣᛡᛠ"
-
-    def to_simple(self):
-        return Simple(self.convert("sim"))
-
-    def to_number(self):
-        return Number(self.convert("num"))
-
-    def to_latin(self):
-        return Latin(self.convert("lat"))
+        return self.gm.run_to_num(self.gm.lat_to_run(self.text))
 
     def sub(self, plain, cipher):
-        return Runes(self.sub_text(plain, cipher))
+        self.text = self.text.upper()
+        return Cipher(self.text.translate(str.maketrans(plain, cipher)), self.alpha)
 
-    def shift(self, n, alpha=False):
-        alpha = alpha or self.alpha
-        return self.sub(alpha, alpha[n:] + alpha[:n])
+    def shift(self, n):
+        return self.sub(self.alpha, self.alpha[n:] + self.alpha[:n])
 
     def atbash(self):
-        return Latin(self.sub_text(alpha, alpha[::-1]))
+        return self.sub(self.alpha, self.alpha[::-1])
+
+    def gematria_sum(self):
+        return sum([n for n in self.to_number() if type(n) is int])
+
+    def gematria_sum_words(self):
+        return [Runes(w).gematria_sum() for w in self.text.split()]
+
+    def gematria_sum_lines(self):
+        return [Runes(w).gematria_sum() for w in self.text.splitlines()]
 
 
-class Latin(Gematria):
+class Runes(Cipher):
     def __init__(self, text):
-        super().__init__(text, "lat")
-        self.alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        super().__init__(text, "ᚠᚢᚦᚩᚱᚳᚷᚹᚻᚾᛁᛄᛇᛈᛉᛋᛏᛒᛖᛗᛚᛝᛟᛞᚪᚫᚣᛡᛠ")
 
-    def to_runes(self):
-        return Runes(self.convert("run"))
 
-    def to_simple(self):
-        return Simple(self.convert("sim"))
+class Latin(Cipher):
+    def __init__(self, text):
+        super().__init__(text.upper(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
-    def to_number(self):
-        return Number(self.convert("num"))
 
-    def shift(self, n, alpha=False):
-        alpha = alpha or self.alpha
-        return Latin(self.sub_text(alpha, alpha[n:] + alpha[:n]))
-
-    def atbash(selfn):
-        return Latin(self.sub_text(alpha, alpha[::-1]))
+class Hex(Cipher):
+    def __init__(self, text):
+        super().__init__(text.upper(), "0123456789ABCDEF")
 
 
 if __name__ == "__main__":
-    a = Runes(
-        """ᚱ-ᛝᚱᚪᛗᚹ.ᛄᛁᚻᛖᛁᛡᛁ-ᛗᚫᚣᚹ-ᛠᚪᚫᚾ-/
-ᚣᛖᛈ-ᛄᚫᚫᛞ.ᛁᛉᛞᛁᛋᛇ-ᛝᛚᚱᛇ-ᚦᚫᛡ/
--ᛞᛗᚫᛝ-ᛇᚫ-ᛄᛁ-ᛇᚪᛡᛁ.ᛇᛁᛈᛇ-ᚣᛁ-ᛞ/
-ᛗᚫᛝᚻᛁᚳᛟᛁ.ᛠᛖᛗᚳ-ᚦᚫᛡᚪ-ᛇᚪᛡᚣ.ᛁᛉ/
-ᛋᛁᚪᛖᛁᛗᛞᛁ-ᚦᚫᛡᚪ-ᚳᚠᚣ.ᚳᚫ-ᛗᚫᛇ-ᛁᚳᛖᛇ-ᚫ/
-ᚪ-ᛞᛚᚱᚹᛁ-ᚣᛖᛈ-ᛄᚫᚫᛞ.ᚫᚪ-ᚣᛁ-ᚾᛁᛈᛈᚱᛟᛁ-/
-ᛞᚫᛗᛇᚱᛖᛗᛁᚳ-ᛝᛖᚣᛖᛗ.ᛁᛖᚣᛁᚪ-ᚣᛁ-ᛝᚫ/
-ᚪᚳᛈ-ᚫᚪ-ᚣᛁᛖᚪ-ᛗᛡᚾᛄᛁᚪᛈ.ᛠᚫᚪ-ᚱᚻᚻ-ᛖ/
-ᛈ-ᛈᚱᛞᚪᛁᚳ./"""
-    )
-    print(a.sub_text("ᚠᚢᚦᚩᚱᚳᚷᚹᚻᚾᛁᛄᛇᛈᛉᛋᛏᛒᛖᛗᛚᛝᛟᛞᚪᚫᚣᛡᛠ", "ᚠᚢᚦᚩᚱᚳᚷᚹᚻᚾᛁᛄᛇᛈᛉᛋᛏᛒᛖᛗᛚᛝᛟᛞᚪᚫᚣᛡᛠ"))
-    print(a.to_latin())
+    r = Runes("ᚱ ᛝᚱᚪᛗᚹ ᛄᛁᚻᛖᛁᛡᛁ ᛗᚫᚣᚹ ᛠᚪᚫᚾ")
+    print(r)
+    print(r.to_latin())
+    print(r.sub("ᚠᚢᚦᚩᚱᚳᚷᚹᚻᚾᛁᛄᛇᛈᛉᛋᛏᛒᛖᛗᛚᛝᛟᛞᚪᚫᚣᛡᛠ", "ABCDEFGHIJKLMNOPQRSTUVWXYZ123").text)
+    print(r.atbash().text)
+    print(r.to_number())
+    print(r.gematria_sum())
+    print(r.to_latin().gematria_sum())
+    print(r.gematria_sum_words())
+    print(r.gematria_sum_lines())
     # ᚻᛖᛚᛚᚩ
-    print(Latin("Hello"))
+    h = Latin("Hello").to_runes()
+    print(h.text)
+    for i in range(4):
+        print(h.shift(i).text)
+        print(Hex("afe81723").shift(i))
