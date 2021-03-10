@@ -15,7 +15,7 @@ shift = 0
 for page in lp.pages[0:3]:
     # page is a Runes() object so we can do some cool things:
     # atbash substitution
-    page.substitute("ᚠᚢᚦᚩᚱᚳᚷᚹᚻᚾᛁᛄᛇᛈᛉᛋᛏᛒᛖᛗᛚᛝᛟᛞᚪᚫᚣᛡᛠ", "ᛠᛡᚣᚫᚪᛞᛟᛝᛚᛗᛖᛒᛏᛋᛉᛈᛇᛄᛁᚾᚻᚹᚷᚳᚱᚩᚦᚢᚠ")
+    page.atbash()
     # caesar shift
     page.shift(shift)
     # use .text to get the contents of a Gematria() object such as Runes()
@@ -29,7 +29,7 @@ print(Runes("ᚠᚢᚦᚩᚱᚳᚷᚹᚻᚾᛁᛄᛇᛈᛉᛋᛏᛒᛖᛗᛚᛝ�
 # FUTHORKGWHNIJEOPXZTBEMLINGOEDAAEYIAEA
 print(Latin("Hello World!").to_runes())
 # ᚻᛖᛚᛚᚩ ᚹᚩᚱᛚᛞ!
-print(Latin("How would cicada type this?").to_runes().to_latin())
+print(Latin("How would cicada type question everything?").to_runes().to_latin())
 # HOW WOULD KIKADA TYPE THIZ?
 ```
 
@@ -71,7 +71,7 @@ Returns the base text for the object
 ### Method: substitute(abc, cba, mutable=True)
 Runs a substitution cipher where abc is the plain alphabet, and cba is the desired alphabet.
 `mutable` determines whether the function modifies the object contents
-    
+
 ### Method: shift(n, alpha=False)
 Runs a caesar shift on the contents. `alpha` determines if the shift should be on the runic alphabet or the
 latin one
