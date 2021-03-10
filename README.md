@@ -65,19 +65,30 @@ Returns a Runes() object of the contents
 ## Gematria()
 A base class for translating and manipulating the runes
 
-### Property: text
-Returns the base text for the object
+## Cipher()
+A base class for manipulating text given an alphabet
 
-### Method: substitute(abc, cba, mutable=True)
+### Method: sub(abc, cba)
 Runs a substitution cipher where abc is the plain alphabet, and cba is the desired alphabet.
-`mutable` determines whether the function modifies the object contents
 
-### Method: shift(n, alpha=False)
+### Method: shift(n)
 Runs a caesar shift on the contents. `alpha` determines if the shift should be on the runic alphabet or the
 latin one
 
 ### Method: gematria_sum()
 Returns the gematria sum of the contents
+
+### Method: atbash()
+Returns atbashed contents
+
+### Method gematria_sum()
+Returns integer sum of prime values
+
+### Method gematria_sum_words()
+returns list of integer sums of prime values for each word
+
+### Method gematria_sum_lines()
+returns list of integer sums of prime values for each line
 
 ### Method: to_runes()
 Converts text contents to runes
@@ -88,11 +99,11 @@ Converts text contents to latin
 ### Method: to_numbers()
 Converts text contents to gematria values
 
-## Runes(rune_string) inherits Gematria
+## Runes(rune_string) inherits Cipher
 `rune_string`: The string of runes from which the object should be initialized
 
-## Latin(latin_string) inherits Gematria
+## Latin(latin_string) inherits Cipher
 `latin_string`: The string of latin characters from which the object should be initialized
 
-## Number(number_string) inherits Gematria
-`number_string`: The string of number values from which the object should be initialized
+## Hex(hex_string) inherits Cipher
+`hex_string`: The string of hex characters from which the object should be initialized
