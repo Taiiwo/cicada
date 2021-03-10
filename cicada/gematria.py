@@ -89,7 +89,7 @@ class Gematria:
 
 class Cipher:
     def __repr__(self):
-        return "<Gematria %s:%s>" % (self.type, self.text)
+        return "<Cipher %s>" % (self.text)
 
     def __str__(self):
         return self.text
@@ -105,7 +105,7 @@ class Cipher:
     def to_latin(self):
         return Latin(self.gm.run_to_lat(self.text))
 
-    def to_number(self):
+    def to_numbers(self):
         return self.gm.run_to_num(self.gm.lat_to_run(self.text))
 
     def sub(self, plain, cipher):
@@ -119,7 +119,7 @@ class Cipher:
         return self.sub(self.alpha, self.alpha[::-1])
 
     def gematria_sum(self):
-        return sum([n for n in self.to_number() if type(n) is int])
+        return sum([n for n in self.to_numbers() if type(n) is int])
 
     def gematria_sum_words(self):
         return [Runes(w).gematria_sum() for w in self.text.split()]
@@ -149,7 +149,7 @@ if __name__ == "__main__":
     print(r.to_latin())
     print(r.sub("ᚠᚢᚦᚩᚱᚳᚷᚹᚻᚾᛁᛄᛇᛈᛉᛋᛏᛒᛖᛗᛚᛝᛟᛞᚪᚫᚣᛡᛠ", "ABCDEFGHIJKLMNOPQRSTUVWXYZ123").text)
     print(r.atbash().text)
-    print(r.to_number())
+    print(r.to_numbers())
     print(r.gematria_sum())
     print(r.to_latin().gematria_sum())
     print(r.gematria_sum_words())
