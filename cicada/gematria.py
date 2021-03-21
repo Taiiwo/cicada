@@ -156,9 +156,9 @@ class Cipher:
 
         return Cipher(o, self.alpha)
 
-    def vigenere(self, key, interrupts=[]):
+    def vigenere(self, key, interrupts=[], decrypt=False):
         key = [self.alpha.index(k) for k in key.upper() if k in self.alpha]
-        return self.running_shift(key, interrupts=interrupts)
+        return self.running_shift(key, interrupts=interrupts, decrypt=decrypt)
 
 
 class Runes(Cipher):
