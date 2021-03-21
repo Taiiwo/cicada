@@ -132,7 +132,10 @@ class Cipher:
         i = 0
 
         for c in self.text:
-            if c not in self.alpha or c in interrupts:
+            if c not in self.alpha:
+                continue
+            if c in interrupts:
+                o += c
                 continue
             c_index = self.alpha.index(c)
             # grab key at i. Wrap key length if i > len(key)
