@@ -127,21 +127,29 @@ class Cipher:
     def gematria_sum_lines(self):
         return [Runes(w).gematria_sum() for w in self.text.splitlines()]
 
-    def running_shift(self, key, interrupts=""):
+    def running_shift(self, key, interrupts="", decrypt=False):
+        # handles modulo
+        def key_generator(key):
+            while True:
+                for k in key:
+                    yield k
+
+        key = key_generator(key)
         if type(interrupts) == list:
             interrupts = "".join(interrupts)
         o = ""
         i = 0
 
         for c in self.text:
-            if c not in self.alpha:
-                continue
-            if c in interrupts.upper():
+            if c not in self.alpha or c in interrupts.upper():
                 o += c
                 continue
             c_index = self.alpha.index(c)
-            # grab key at i. Wrap key length if i > len(key)
-            shift = key[i % len(key)]
+            # grab next key value
+            shift = next(key)
+            if decrypt:
+                # invert the shift to decrypt
+                shift = -shift
             # shift c by shift, wrap around if shift is longer than alpha
             o += self.alpha[(c_index + shift) % len(self.alpha)]
             i += 1
