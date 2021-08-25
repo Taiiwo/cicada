@@ -144,7 +144,7 @@ class Cipher:
     def to_index(self):
         return [self.alpha.index(i.upper()) for i in self.text.upper()]
 
-    def running_shift(self, key, interrupts="", skip_indices=[], decrypt=False):
+    def running_shift(self, key, interrupts="", skip_indices=[], decrypt=True):
         if not key:
             return self.text
 
@@ -181,15 +181,16 @@ class Cipher:
 
         return Cipher(o, self.alpha)
 
-    def vigenere(self, key, interrupts=[], decrypt=False):
+    def vigenere(self, key, interrupts=[], decrypt=True):
         key = [self.alpha.index(k) for k in key.upper() if k in self.alpha]
         return self.running_shift(key, interrupts=interrupts, decrypt=decrypt)
 
-    def totient_stream(self, interrupts="", skip_indices=[]):
+    def totient_stream(self, interrupts="", skip_indices=[], decrypt=True):
         return self.running_shift(
-            (-p + 1 for p in self.primes()),
+            (p - 1 for p in self.primes()),
             interrupts=interrupts,
             skip_indices=skip_indices,
+            decrypt=decrypt,
         )
 
 
