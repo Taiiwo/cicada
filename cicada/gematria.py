@@ -101,11 +101,16 @@ class Cipher:
         self.text = text
         self.alpha = alpha
         self.gm = Gematria()
-        self.primes = lambda: (
+        self.primes = lambda: (  # generates an infinite number of prime numbers
             n
-            for n, _ in enumerate(iter(int, 1))
-            if all(n % p != 0 for p in range(2, int(math.sqrt(n)) + 1))
-            and n not in [0, 1]
+            for n, _ in enumerate(iter(int, 1))  # for every value of n
+            if n % 2 != 0  # but only if n is not even
+            and all(
+                n % p != 0 for p in range(3, int(math.sqrt(n)) + 1, 2)
+            )  # not divisable by 3..sqrt(n)+1, skipping even numbers
+            and n
+            != 1  # 1 doesn't count as prime (we're not counting 2 specific factors, so this has to be hardcoded)
+            or n == 2  # bypass the even number skip for 2.
         )
 
     def to_runes(self):
