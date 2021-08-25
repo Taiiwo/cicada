@@ -163,7 +163,6 @@ class Cipher:
         for c in self.text:
             if c not in self.alpha or c in interrupts.upper():
                 o += c
-                i += 1
                 continue
             if i in skip_indices:
                 o += c
