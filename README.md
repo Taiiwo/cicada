@@ -30,7 +30,7 @@ print(Runes("ᚠᚢᚦᚩᚱᚳᚷᚹᚻᚾᛁᛄᛇᛈᛉᛋᛏᛒᛖᛗᛚᛝ�
 print(Latin("Hello World!").to_runes())
 # ᚻᛖᛚᛚᚩ ᚹᚩᚱᛚᛞ!
 print(Latin("How would cicada type question everything?").to_runes().to_latin())
-# HOW WOULD KIKADA TYPE THIZ?
+# HOW WOULD CICADA TYPE CWESTION EUERYTHING?
 ```
 
 # API
