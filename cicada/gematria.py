@@ -58,7 +58,7 @@ class Gematria:
         return [m[c] if c in m else c for c in x]
 
     def lat_to_sim(self, x):
-        x = x.lower().replace("q", "cw")
+        x = x.lower().replace("qu", "kw").replace("q", "k")
         o = ""
         while len(x) > 0:
             for sim in self.latsimple:
@@ -81,13 +81,12 @@ class Gematria:
         return self.gem_map(x, 0, 2)
 
     def lat_to_run(self, x):
-        x = x.lower().replace("qu", "q")
         return "".join(self.gem_map(self.lat_to_sim(x), 1, 0))
 
     def lat_to_num(self, x):
         # strip non alpha chars when converting to num
         x = "".join([c for c in x if c.isalpha() or c == " "])
-        return self.gem_map(self.lat_to_sim(x.lower()), 1, 2)
+        return self.gem_map(self.lat_to_sim(x), 1, 2)
 
     def num_to_run(self, x):
         return self.gem_map(x, 2, 0)
