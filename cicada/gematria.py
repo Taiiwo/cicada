@@ -58,10 +58,16 @@ class Gematria:
         return [m[c] if c in m else c for c in x]
 
     def lat_to_sim(self, x):
-        x = x.replace("q", "cw")
-        for sim in self.latsimple:
-            x = x.replace(sim[1], sim[0])
-        return x
+        x = x.lower().replace("q", "cw")
+        o = ""
+        while len(x) > 0:
+            for sim in self.latsimple:
+                if x.startswith(sim[1]):
+                    x, o = x[len(sim[1]):], o + sim[0]
+                    break
+            else:
+                x, o = x[1:], o + x[0]
+        return o
 
     def sim_to_lat(self, x):
         for sim in self.latsimple:
@@ -108,8 +114,7 @@ class Cipher:
             and all(
                 n % p != 0 for p in range(3, int(math.sqrt(n)) + 1, 2)
             )  # not divisable by 3..sqrt(n)+1, skipping even numbers
-            and n
-            != 1  # 1 doesn't count as prime (we're not counting 2 specific factors, so this has to be hardcoded)
+            and n != 1  # 1 doesn't count as prime (we're not counting 2 specific factors, so this has to be hardcoded)
             or n == 2  # bypass the even number skip for 2.
         )
 
@@ -180,9 +185,9 @@ class Cipher:
 
         return Cipher(o, self.alpha)
 
-    def vigenere(self, key, interrupts=[], decrypt=True):
+    def vigenere(self, key, interrupts=[], skip_indices=[], decrypt=True):
         key = [self.alpha.index(k) for k in key.upper() if k in self.alpha]
-        return self.running_shift(key, interrupts=interrupts, decrypt=decrypt)
+        return self.running_shift(key, interrupts=interrupts, skip_indices=skip_indices, decrypt=decrypt)
 
     def totient_stream(self, interrupts="", skip_indices=[], decrypt=True):
         return self.running_shift(
