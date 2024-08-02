@@ -5,7 +5,7 @@ from cicada.gematria import Latin, Runes
 lp = LiberPrimus()
 
 cipher = Latin("crack me, baby. This is some text to crack. Let's see if we can crack it")
-cipher.sub("ABCDEFGHIJKLMN", "QWERTYUIOPASDF")
+cipher = cipher.sub("ABCDEFGHIJKLMN", "QWERTYUIOPASDF")
 #cipher.substitute("ABCDEFGHIJKLMNOPQRSTUVWXYZ", "ABCDEFGHIJKLMNOPQRSUTVWXYZ")
 print(cipher)
 cipher = cipher.to_runes().text
