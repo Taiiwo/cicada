@@ -5,7 +5,7 @@ from cicada.gematria import Latin, Runes
 lp = LiberPrimus()
 
 cipher = Latin("crack me, baby. This is some text to crack. Let's see if we can crack it")
-cipher.substitute("ABCDEFGHIJKLMN", "QWERTYUIOPASDF")
+cipher.sub("ABCDEFGHIJKLMN", "QWERTYUIOPASDF")
 #cipher.substitute("ABCDEFGHIJKLMNOPQRSTUVWXYZ", "ABCDEFGHIJKLMNOPQRSUTVWXYZ")
 print(cipher)
 cipher = cipher.to_runes().text
@@ -25,7 +25,7 @@ from cicada.pybar import PyBar
 import math
 bar = PyBar(max=math.factorial(19), poll=1)
 for combination in permutations("YRABMSTHFLNETCXIOWK"):
-    text = cipher.substitute("YRABMSTHFLNETCXIOWK", "".join(combination), mutable=False)
-    bar.update(bar.percent(), bar.progress(), bar.bar(), bar.rate(time=1), "Current: ", text, next=True)
-    if v.is_cicadian(text):
+    text = cipher.sub("YRABMSTHFLNETCXIOWK", "".join(combination))
+    bar.update(bar.percent(), bar.progress(), bar.bar(), bar.rate(time=1), "Current: ", text.text, next=True)
+    if v.is_cicadian(text.text):
         bar.echo(text)
