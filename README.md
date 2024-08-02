@@ -15,13 +15,13 @@ shift = 0
 for page in lp.pages[0:3]:
     # page is a Runes() object so we can do some cool things:
     # atbash substitution
-    page.atbash()
+    page.runes.atbash()
     # caesar shift
-    page.shift(shift)
+    page.runes.shift(shift)
     # use .text to get the contents of a Gematria() object such as Runes()
     # Note: it will also convert to str with str(Runes()) or equiv
     print("Runes: %s" % page.text)
-    print("Plaintext: %s" % page.to_latin())
+    print("Plaintext: %s" % page.runes.to_latin())
     # example of automated shifting
     shift += 1
 
