@@ -137,7 +137,7 @@ class Cipher:
         return self.sub(self.alpha, self.alpha[::-1])
 
     def to_index(self):
-        return [self.alpha.index(i.upper()) for i in self.text.upper()]
+        return [self.alpha.index(i.upper()) if i in self.alpha else " " for i in self.text.upper()]
 
     def running_shift(self, key, interrupts="", skip_indices=[], decrypt=True):
         if not key:
