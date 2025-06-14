@@ -136,15 +136,6 @@ class Cipher:
     def atbash(self):
         return self.sub(self.alpha, self.alpha[::-1])
 
-    def gematria_sum(self):
-        return sum([n for n in self.to_numbers() if type(n) is int])
-
-    def gematria_sum_words(self):
-        return [Runes(w).gematria_sum() for w in self.text.split()]
-
-    def gematria_sum_lines(self):
-        return [Runes(w).gematria_sum() for w in self.text.splitlines()]
-
     def to_index(self):
         return [self.alpha.index(i.upper()) for i in self.text.upper()]
 
@@ -193,8 +184,22 @@ class Cipher:
             (p - 1 for p in self.primes()),
             interrupts=interrupts,
             skip_indices=skip_indices,
-            decrypt=decrypt,
         )
+    
+    def gematria_sum(self):
+        return sum([n for n in self.to_numbers() if type(n) is int])
+    
+    def gematria_sum_words(self):
+        return [Runes(w).gematria_sum() for w in self.text.split()]
+
+    def gematria_sum_lines(self):
+        return [Runes(w).gematria_sum() for w in self.text.splitlines()]
+    
+    def index_of_coincidence(self):
+        return sum([self.text.count(c) * (self.text.count(c) - 1) for c in self.alpha]) / (len(self.text) * (len(self.text) - 1))
+    
+    def entropy(self):
+        return sum([-self.text.count(c) / len(self.text) * math.log(self.text.count(c) / len(self.text), 2) for c in self.alpha if self.text.count(c) > 0])
 
 
 class Runes(Cipher):
