@@ -86,7 +86,7 @@ class Gematria:
     def lat_to_num(self, x):
         # strip non alpha chars when converting to num
         x = "".join([c for c in x if c.isalpha() or c == " "])
-        return self.gem_map(self.lat_to_sim(x), 1, 2)
+        return self.gem_map(self.lat_to_sim(x.lower()), 1, 2)
 
     def num_to_run(self, x):
         return self.gem_map(x, 2, 0)
